@@ -62,6 +62,8 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
 
             // each time the button btnImportNewStatement is clicked, do a split and move action
             SplitFilesAndMove();
+            SimpleFileMove(ALedgerNumber);
+
 
             OpenFileDialog DialogOpen = new OpenFileDialog();
 
@@ -157,6 +159,7 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
         private void ProcessStatementsOnServer(BankImportTDS AMainDS)
         {
             TMBankimportNamespace PluginRemote = new TMBankimportNamespace();
+
             if (PluginRemote.WebConnectors.StoreNewBankStatement(
                     AMainDS,
                     out FStatementKey) == TSubmitChangesResult.scrOK)
@@ -405,6 +408,39 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
             }
 
             return true;
+        }
+
+        private bool SimpleFileMove(Int32 ALedgerNumber)
+        {
+            string MyPath = TAppSettingsManager.GetValue("BankimportPath" + ALedgerNumber.ToString() + Path.DirectorySeparatorChar);
+            string MyPath2 = MyPath + Path.DirectorySeparatorChar + "imported" + Path.DirectorySeparatorChar;
+
+            if (DateTime.Today.Day >= 8)
+            {
+                DateTime LastMonth = DateTime.Today.AddMonths(-1);
+
+                for (int counter = 1; counter <= 31; counter++)
+                {
+                    string filename = "EKK_" + LastMonth.ToString("yyMM") + counter.ToString("00") + ".sta";
+                    string filename2 = "SPK_" + LastMonth.ToString("yyMM") + counter.ToString("00") + ".sta";
+
+                    if (File.Exists(MyPath + filename))
+                    {
+                        System.IO.File.Move(MyPath + filename, MyPath2 + filename);
+                    }
+
+                    if (File.Exists(MyPath + filename2))
+                    {
+                        System.IO.File.Move(MyPath + filename2, MyPath2 + filename2);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Keine Dateien wurde kopiert");
+            }
+
+            return false;
         }
     }
 }
