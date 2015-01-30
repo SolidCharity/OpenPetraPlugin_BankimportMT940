@@ -4,7 +4,7 @@
 // @Authors:
 //       timop
 //
-// Copyright 2004-2014 by OM International
+// Copyright 2004-2015 by OM International
 //
 // This file is part of OpenPetra.org.
 //
@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Threading;
 using System.Text;
+using Ict.Common;
 
 namespace Ict.Petra.Plugins.BankimportMT940.Client
 {
@@ -174,9 +175,9 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
 
                 if (swiftData[0] == 'R')
                 {
-                    // not sure what the storno means; ignore at the moment;
-                    // balance would fail if it should be handled differently
-                    debitCreditIndicator = (swiftData[1] == 'D' ? -1 : 1);
+                    // storno means: reverse the debit credit flag
+                    debitCreditIndicator = (swiftData[1] == 'D' ? 1 : -1);
+
                     swiftData = swiftData.Substring(2);
                 }
                 else

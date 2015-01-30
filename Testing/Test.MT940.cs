@@ -4,7 +4,7 @@
 // @Authors:
 //       timop
 //
-// Copyright 2004-2014 by OM International
+// Copyright 2004-2015 by OM International
 //
 // This file is part of OpenPetra.org.
 //
@@ -70,7 +70,7 @@ namespace Ict.Petra.Plugins.Testing.BankimportMT940
         {
             TSwiftParser p = new TSwiftParser();
 
-            p.ProcessFile(TAppSettingsManager.GetValue("Testing.Path") + "/lib/Plugins/BankImportMT940/test-data/test1.sta");
+            p.ProcessFile("../../csharp/ICT/Petra/Plugins/BankimportMT940/Testing/test-data/test1.sta");
         }
     }
 }
