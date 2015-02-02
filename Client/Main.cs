@@ -2,9 +2,9 @@
 // DO NOT REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
 //
 // @Authors:
-//       timop
+//       timop, jonass
 //
-// Copyright 2004-2014 by OM International
+// Copyright 2004-2015 by OM International
 //
 // This file is part of OpenPetra.org.
 //
@@ -62,7 +62,7 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
 
             // each time the button btnImportNewStatement is clicked, do a split and move action
             SplitFilesAndMove();
-            SimpleFileMove(ALedgerNumber);
+            ArchiveFilesLastMonth(ALedgerNumber);
 
 
             OpenFileDialog DialogOpen = new OpenFileDialog();
@@ -410,7 +410,7 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
             return true;
         }
 
-        private bool SimpleFileMove(Int32 ALedgerNumber)
+        private bool ArchiveFilesLastMonth(Int32 ALedgerNumber)
         {
             string MyPath = TAppSettingsManager.GetValue("BankimportPath" + ALedgerNumber.ToString() + Path.DirectorySeparatorChar);
             string MyPath2 = MyPath + Path.DirectorySeparatorChar + "imported" + Path.DirectorySeparatorChar;
@@ -434,10 +434,6 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
                         System.IO.File.Move(MyPath + filename2, MyPath2 + filename2);
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Keine Dateien wurde kopiert");
             }
 
             return false;
