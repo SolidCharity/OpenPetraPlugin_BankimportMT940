@@ -34,7 +34,7 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
     /// <summary>
     /// parses bank statement files (Swift MT940) in Germany;
     /// for the structure of the file see
-    /// https://www.frankfurter-sparkasse.de/data/50050201/portal/IPSTANDARD/1/content/resources/d09a368d.pdf
+    /// https://www.db-bankline.deutsche-bank.com/download/MT940_Deutschland_Structure2002.pdf
     /// </summary>
     public class TSwiftParser
     {
@@ -245,6 +245,10 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
                     else if (key == 10)
                     {
                         // Primanotennummer; ignore at the moment
+                    }
+                    else if (key == 15)
+                    {
+                        // ignore, unknown meaning
                     }
                     else if ((key >= 20) && (key <= 29))
                     {
