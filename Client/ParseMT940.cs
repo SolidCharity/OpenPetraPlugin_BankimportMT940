@@ -246,7 +246,7 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
                     {
                         // Primanotennummer; ignore at the moment
                     }
-                    else if (key == 15)
+                    else if ((key >= 11) && (key <= 19))
                     {
                         // ignore, unknown meaning
                     }
