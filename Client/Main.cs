@@ -414,6 +414,7 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
         {
             string MyPath = TAppSettingsManager.GetValue("BankimportPath" + ALedgerNumber.ToString() + Path.DirectorySeparatorChar);
             string MyPath2 = MyPath + Path.DirectorySeparatorChar + "imported" + Path.DirectorySeparatorChar;
+
             string[] bankAccountData = TAppSettingsManager.GetValue("BankAccounts").Split(new char[] { ',' });
 
             if (DateTime.Today.Day >= 8)
@@ -425,7 +426,7 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
                     for (Int32 bankCounter = 0; bankCounter < bankAccountData.Length / 3; bankCounter++)
                     {
                         string filename = bankAccountData[bankCounter * 3 + 1] + "_" + LastMonth.ToString("yyMM") + counter.ToString("00") + ".sta";
-    
+
                         if (File.Exists(MyPath + filename))
                         {
                             System.IO.File.Move(MyPath + filename, MyPath2 + filename);

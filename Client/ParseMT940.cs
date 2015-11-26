@@ -273,6 +273,11 @@ namespace Ict.Petra.Plugins.BankimportMT940.Client
                     {
                         // Textschlüsselergänzung; ignore
                     }
+                    else if ((key == 35) || (key == 36))
+                    {
+                        // Empfängername
+                        transaction.description += value;
+                    }
                     else if ((key >= 60) && (key <= 63))
                     {
                         transaction.description += value;
